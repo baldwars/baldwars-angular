@@ -1,0 +1,24 @@
+<main fxLayout="row" fxLayoutAlign="center center" class="container">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+        <h2>Happy to see you!</h2>
+
+        <mat-form-field class="full-width-input">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+          <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Log in</button>
+          <span> Don't have an account yet? <a routerLink="/register">Register here</a> </span>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</main>
