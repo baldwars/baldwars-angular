@@ -32,7 +32,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: Deploy on DEV server
+      - name: Deploy on server
         uses: fjogeleit/http-request-action@master
         with:
           url: ${{ secrets.WEBHOOK_SERVER_URL }}
