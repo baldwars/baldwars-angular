@@ -24,10 +24,6 @@ RUN npm install -g @angular/cli@12.0.1
 # add app
 COPY . /app
 
-# run tests
-RUN ng test --watch=false
-RUN ng e2e --port 4202
-
 # generate build
 RUN ng build --output-path=dist
 
