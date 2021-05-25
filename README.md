@@ -13,7 +13,7 @@
 
 > #### *<u>Prerequisites:</u>*
 > - `git clone https://github.com/baldwars/baldwars-api.git`
-> - Follow `README.md` **BaldWars API**'s file instructions for local run.
+> - Follow `README.md` **BaldWars API**'s file instructions to run the API locally.
 
 ---
 
