@@ -1,0 +1,8 @@
+mat-card {
+  width: 400px;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+}

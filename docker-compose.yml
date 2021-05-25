@@ -1,0 +1,56 @@
+version: '3.4'
+
+networks:
+  postgres:
+  godbox:
+  angular:
+
+volumes:
+  postgres-data:
+  postgres-log:
+
+services:
+  godbox:
+    image: quantumsheep/godbox
+    privileged: true
+    networks:
+      - godbox
+
+  baldwars-db:
+    image: postgres
+    networks:
+      - postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - postgres-log:/var/log/postgresql
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${BALDWARS_DB_NAME}
+      POSTGRES_USER: ${BALDWARS_DB_USER}
+      POSTGRES_PASSWORD: ${BALDWARS_DB_PASSWORD}
+
+  baldwars-api:
+    image: chukitipok/baldwars-api
+    networks:
+      - postgres
+      - godbox
+      - angular
+    env_file: .env
+    environment:
+      POSTGRES_URL: ${BALDWARS_DB_URL}
+      POSTGRES_USER: ${BALDWARS_DB_USER}
+      POSTGRES_PASSWORD: ${BALDWARS_DB_PASSWORD}
+      JWT_TOKEN_SECRET: ${JWT_TOKEN_SECRET}
+
+  baldwars-angular:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 4201:4200
+    networks:
+      - angular
