@@ -19,7 +19,8 @@
 
 At the project's root (`./baldwars-angular/`), run the following commands:
 
-- `npm install` or `npm i`
-- `npm run start` or `ng serve`
+- `npm install` or `npm i`,
+- Change `endpoint` property by `http://localhost:8080/api` in `src/environments/environment.ts`,
+- `npm run start` or `ng serve`.
 
 > *<u>Note:</u> You can change the port of the local server with `--port` option: `ng serve --port=4201`.*
