@@ -1,4 +1,4 @@
 export const environment = {
-  endpoint: 'https://baldwars-api.chukitipok.qtmsheep.com/api',
+  endpoint: 'http://baldwars-api:7000/api',
   production: true
 };
