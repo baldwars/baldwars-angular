@@ -1,4 +1,4 @@
 export const environment = {
-  endpoint: 'http://chukitipok.qtmsheep.com:7000/api',
+  endpoint: 'https://chukitipok.qtmsheep.com/api',
   production: true
 };
