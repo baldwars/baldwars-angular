@@ -1,1 +1,23 @@
-<p>header works!</p>
+<header fxLayout="row">
+  <mat-toolbar color="primary">
+    <div fxFlex="20">
+      <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span>BaldWars</span>
+    </div>
+
+    <div fxFlex></div>
+
+    <div *ngIf="isLogged" fxFlex="20" fxLayout="row" fxLayoutAlign="space-evenly center">
+      <button mat-icon-button>
+        <fa-icon [icon]="userIcon"></fa-icon> {{ currentUser?.username }}
+      </button>
+
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon> Logout
+      </button>
+    </div>
+  </mat-toolbar>
+</header>
