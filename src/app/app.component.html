@@ -1,4 +1,13 @@
-<div class="main-container">
+<div class="sticky-header">
+  <app-header></app-header>
+</div>
+
+<div class="container">
   <router-outlet></router-outlet>
   <notifier-container></notifier-container>
 </div>
+
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <app-footer></app-footer>
+</div>
+

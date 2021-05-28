@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { LoginResponse } from "../../models/authentication/login-response.model";
 import { environment } from "../../../../environments/environment";
 import { Session } from "../../models/authentication/session.model";
@@ -11,6 +11,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class AuthenticationService {
+  @Output() fireIsLoggedIn: EventEmitter<any> = new EventEmitter<any>();
 
   private url = environment.endpoint + '/auth';
 
@@ -43,17 +44,28 @@ export class AuthenticationService {
       if (!res?.token) return false;
 
       AuthenticationService.setSessionToLocalStorage(res.token, undefined);
-      const user = await this.http.get<User>(`${ environment.endpoint }/users/user/${ username }`).toPromise();
+      const response = await this.http.get<any>(`${ environment.endpoint }/users/user/${ username }`).toPromise();
 
-      if (!user || !user?.id || !user?.username || !user?.eloScore ) return false;
+      if (!response) return false;
+
+      const user: User = {
+        username: response?.username,
+        id: response?.id,
+        eloScore: response?.rank
+      }
 
       AuthenticationService.setSessionToLocalStorage(res.token, user);
+      this.fireIsLoggedIn.emit();
 
       return true;
 
     } catch {
       return false;
     }
+  }
+
+  getEmitter() {
+    return this.fireIsLoggedIn;
   }
 
   logout() {
