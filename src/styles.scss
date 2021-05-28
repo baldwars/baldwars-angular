@@ -1,18 +1,17 @@
 @import "~angular-notifier/styles";
+@import "~@fortawesome/fontawesome-svg-core";
+@import "~normalize.css";
 
-html {
-  width: 100%;
+html, body {
+  width:100%;
   height: 100%;
+}
+
+html, body, main {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.main-container, .container {
-  width: 100%;
-  height: 100%;
 }
