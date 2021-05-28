@@ -17,6 +17,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NotifierModule } from "angular-notifier";
 import { notifierOptions } from './notifier.config';
+import { MonacoEditorModule } from "ngx-monaco-editor";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { notifierOptions } from './notifier.config';
     AngularMaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
+    MonacoEditorModule.forRoot(),
     NotifierModule.withConfig(notifierOptions),
   ],
   providers: [
