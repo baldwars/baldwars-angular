@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
+  editorOptions = {theme: 'vs-dark', language: 'javascript'};
+  code: string= 'function x() {\nconsole.log("Hello world!");\n}';
 
   constructor() { }
 
