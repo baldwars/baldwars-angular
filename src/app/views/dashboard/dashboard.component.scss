@@ -1,0 +1,15 @@
+.menu-card {
+  width: 60%;
+  margin: auto;
+
+  mat-grid-list {
+    height: 200px;
+  }
+  mat-grid-tile {
+    background-color: lightgrey;
+  }
+}
+
+.combat-history-card {
+  margin-top: 20px;
+}
