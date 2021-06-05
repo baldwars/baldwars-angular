@@ -18,6 +18,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NotifierModule } from "angular-notifier";
 import { notifierOptions } from './notifier.config';
 import { MonacoEditorModule } from "ngx-monaco-editor";
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MonacoEditorModule } from "ngx-monaco-editor";
     RegisterComponent,
     HomeComponent,
     EditorComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
