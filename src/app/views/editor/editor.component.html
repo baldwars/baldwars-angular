@@ -1,2 +1,4 @@
-<p>editor works!</p>
-<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<div class="editor-container">
+  <ngx-monaco-editor style="height: 100%" [options]="editorOptions" [(ngModel)]="code" (onInit)="onInit($event)"></ngx-monaco-editor>
+  <button mat-button (click)="sendCode()">Submit code</button>
+</div>
