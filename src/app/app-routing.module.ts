@@ -7,13 +7,14 @@ import { LoginComponent } from './views/login/login.component';
 import { AuthGuard } from "./guards/auth.guard";
 import { NoAuthGuard } from './guards/no-auth.guard';
 import {EditorComponent} from "./views/editor/editor.component";
+import {DashboardComponent} from "./views/dashboard/dashboard.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent, canActivate: [NoAuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'editor', component: EditorComponent, canActivate: [AuthGuard] },
-  { path: 'e', component: EditorComponent, canActivate: [NoAuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
