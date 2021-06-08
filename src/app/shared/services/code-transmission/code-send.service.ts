@@ -12,7 +12,26 @@ export class CodeSendService {
 
   constructor(private http: HttpClient) { }
 
-  sendCode(code: UserCode) {
-    return this.http.post(`${this.url}/run`, code, {observe: 'response'});
+  sendCode(userCode: UserCode) {
+    return this.http.post(`${this.url}/run`, userCode).toPromise(); // à continuer
+  }
+
+  async mockSend(): Promise<any>{
+    return new Promise((resolve, reject) => resolve({
+      phases: [
+        {
+          name: "Compilation",
+          status: 0,
+          stdout: "",
+          stderr: "OK (0.041 sec real, 0.048 sec wall)\n"
+        },
+        {
+          name: "Execution",
+          status: 0,
+          stdout: "Hello, World!\n",
+          stderr: "OK (0.001 sec real, 0.005 sec wall)\n"
+        }
+      ]
+    }));
   }
 }

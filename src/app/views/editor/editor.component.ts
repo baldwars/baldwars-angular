@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CodeSendService} from "../../shared/services/code-transmission/code-send.service";
+import {UserCode} from "../../shared/models/editor/user-code.model";
 
 @Component({
   selector: 'app-editor',
@@ -8,12 +9,22 @@ import {CodeSendService} from "../../shared/services/code-transmission/code-send
 })
 export class EditorComponent implements OnInit {
   editorOptions = {theme: 'vs-dark', language: 'c'};
-  code: string= `#include <stdio.h>
+  userCode: UserCode = {
+    username: "Mukerz",
+    code: `#include <stdio.h>
 int main() {
    // printf() displays the string inside quotation
    printf("Hello, World!");
    return 0;
-}`;
+}`
+  };
+  serverResponse = "";
+  /*code: string= `#include <stdio.h>
+int main() {
+   // printf() displays the string inside quotation
+   printf("Hello, World!");
+   return 0;
+}`;*/
 
   constructor(
     private codeSendService: CodeSendService
@@ -27,8 +38,12 @@ int main() {
     console.log(line);
   }
 
-  sendCode() {
-    this.codeSendService.sendCode(this.code);
-    console.log(this.code);
+  async sendCode() {
+    // this.codeSendService.sendCode(this.userCode);
+    const response = await this.codeSendService.mockSend();
+    console.log(response);
+    console.log(response.phases[1].stdout);
+    this.serverResponse = response.phases[1].stdout;
+    console.log(this.userCode.code);
   }
 }
