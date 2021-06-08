@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {UserCode} from "../../models/editor/user-code.model";
+import {GodboxResponse} from "../../models/editor/godbox-response";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CodeSendService {
   constructor(private http: HttpClient) { }
 
   sendCode(userCode: UserCode) {
-    return this.http.post(`${this.url}/run`, userCode).toPromise(); // à continuer
+    return this.http.post<GodboxResponse>(`${this.url}/run`, userCode).toPromise(); // à continuer
   }
 
   async mockSend(): Promise<any>{

@@ -39,11 +39,13 @@ int main() {
   }
 
   async sendCode() {
-    // this.codeSendService.sendCode(this.userCode);
-    const response = await this.codeSendService.mockSend();
+    const response = await this.codeSendService.sendCode(this.userCode);
+    if (response.phases[0].status !== 0) {
+      console.log(response.phases[0].stderr)
+    }
+    // const response = await this.codeSendService.mockSend();
     console.log(response);
     console.log(response.phases[1].stdout);
     this.serverResponse = response.phases[1].stdout;
-    console.log(this.userCode.code);
   }
 }
