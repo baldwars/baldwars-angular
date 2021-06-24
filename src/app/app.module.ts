@@ -19,6 +19,9 @@ import { NotifierModule } from "angular-notifier";
 import { notifierOptions } from './notifier.config';
 import { MonacoEditorModule } from "ngx-monaco-editor";
 import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { LeaderboardComponent } from './views/leaderboard/leaderboard.component';
+import { DocumentationComponent } from './views/documentation/documentation.component';
+import { FightComponent } from './views/fight/fight.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
     HomeComponent,
     EditorComponent,
     DashboardComponent,
+    LeaderboardComponent,
+    DocumentationComponent,
+    FightComponent,
   ],
   imports: [
     BrowserModule,

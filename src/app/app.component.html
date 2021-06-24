@@ -1,13 +1,22 @@
 <div class="sticky-header">
-  <app-header></app-header>
+  <app-header [sidenav]="sidenav"></app-header>
 </div>
 
-<div class="container">
-  <div class="page-content">
-    <router-outlet></router-outlet>
-    <notifier-container></notifier-container>
-  </div>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <mat-nav-list>
+      <mat-list-item routerLink="/dashboard">Dashboard</mat-list-item>
+      <mat-list-item routerLink="/editor">Editor</mat-list-item>
+      <mat-list-item routerLink="/leaderboard">Leaderboard</mat-list-item>
+      <mat-list-item routerLink="/documentation">Documentation</mat-list-item>
+      <mat-list-item routerLink="/fight">Fight</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <router-outlet></router-outlet>
+      <notifier-container></notifier-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
 <div class="footer" fxLayout="row" fxLayoutAlign="center center">
   <app-footer></app-footer>
