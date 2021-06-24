@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { User } from "../../models/user/user.model";
 import { AuthenticationService } from "../../services/authentication/authentication.service";
@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
 
   currentUser?: User;
   isLogged: boolean = false;
+
+  @Input() sidenav: any;
 
   constructor(
     private authService: AuthenticationService,
