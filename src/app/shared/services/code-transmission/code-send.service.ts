@@ -17,20 +17,32 @@ export class CodeSendService {
     return this.http.post<GodboxResponse>(`${this.url}/run`, userCode).toPromise(); // à continuer
   }
 
-  async mockSend(): Promise<any>{
+  async mockSend(userCode: UserCode): Promise<any>{
     return new Promise((resolve, reject) => resolve({
       phases: [
         {
           name: "Compilation",
           status: 0,
           stdout: "",
-          stderr: "OK (0.041 sec real, 0.048 sec wall)\n"
+          stderr: "",
+          time: 0.037,
+          time_wall: 0.043,
+          used_memory: 6640,
+          sandbox_status: null,
+          csw_voluntary: 18,
+          csw_forced: 16
         },
         {
           name: "Execution",
           status: 0,
           stdout: "Hello, World!\n",
-          stderr: "OK (0.001 sec real, 0.005 sec wall)\n"
+          stderr: "",
+          time: 0.002,
+          time_wall: 0.007,
+          used_memory: 856,
+          sandbox_status: null,
+          csw_voluntary: 7,
+          csw_forced: 0
         }
       ]
     }));
