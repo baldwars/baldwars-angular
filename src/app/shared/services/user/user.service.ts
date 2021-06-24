@@ -8,27 +8,12 @@ import {Session} from "../../models/authentication/session.model";
 })
 export class UserService {
 
-  currentUser?: User;
-  isLogged: boolean = false;
-
   constructor(
     private authService: AuthenticationService
-  ) {
-    this.authService.isLogged().then(logged => {
-      this.isLogged = logged;
-      if (this.isLogged) {
-        this.currentUser = this.authService.session()?.user;
-      }
-    });
-  }
+  ) { }
 
-  getUsername(){
-    const session = this.session();
+  getCurrentUser(){
+    const session = this.authService.session();
     return session?.user;
-  }
-
-  session(): Session {
-    const session = localStorage.getItem('session')
-    return !session ? null : JSON.parse(atob(session));
   }
 }
