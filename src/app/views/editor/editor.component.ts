@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CodeSendService} from "../../shared/services/code-transmission/code-send.service";
 import {UserCode} from "../../shared/models/editor/user-code.model";
 import {UserService} from "../../shared/services/user/user.service";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-editor',
@@ -29,7 +30,8 @@ int main() {
 
   constructor(
     private codeSendService: CodeSendService,
-    private userService: UserService
+    private userService: UserService,
+    private notifierService: NotifierService
   ) { }
 
   ngOnInit(): void {
@@ -44,11 +46,13 @@ int main() {
     const response = await this.codeSendService.mockSend(this.userCode);
     if (response.phases[0].status !== 0) {
       console.log('compil error occurred')
+      this.notifierService.notify('error', 'Compilation error')
       this.serverResponse = "Compilation error : " + response.phases[0].stderr;
       return;
     }
     if (response.phases[1].status !== 0) {
       console.log('execute error occurred')
+      this.notifierService.notify('error', 'Execution error')
       this.serverResponse = "Execution error : " + response.phases[1].stderr;
       return;
     }

@@ -22,7 +22,7 @@ export class CodeSendService {
       phases: [
         {
           name: "Compilation",
-          status: 0,
+          status: 1,
           stdout: "",
           stderr: "",
           time: 0.037,
