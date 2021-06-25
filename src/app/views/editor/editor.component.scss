@@ -4,7 +4,7 @@
   .editor-container {
     height: 500px;
     width: 80%;
-    margin: auto;
+    margin: 10px auto;
     background-color: #1e1e1e;
 
     mat-card-header {
@@ -32,6 +32,10 @@
 
     mat-card-title-group {
       width: 100%;
+
+      mat-card-title {
+        cursor: pointer;
+      }
     }
   }
 }
