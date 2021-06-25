@@ -22,6 +22,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { LeaderboardComponent } from './views/leaderboard/leaderboard.component';
 import { DocumentationComponent } from './views/documentation/documentation.component';
 import { FightComponent } from './views/fight/fight.component';
+import { LobbyComponent } from './views/lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FightComponent } from './views/fight/fight.component';
     LeaderboardComponent,
     DocumentationComponent,
     FightComponent,
+    LobbyComponent,
   ],
   imports: [
     BrowserModule,
