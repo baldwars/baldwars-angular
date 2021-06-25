@@ -10,7 +10,7 @@ import {NotifierService} from "angular-notifier";
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
-  editorOptions = {theme: 'vs-dark', language: 'c'};
+  editorOptions = {theme: 'vs-dark', language: 'c', automaticLayout: true};
   userCode: UserCode = {
     username: this.userService.getCurrentUser()?.username,
     code: `#include <stdio.h>
@@ -58,5 +58,17 @@ int main() {
     }
     console.log("response :", response);
     this.serverResponse = response.phases[1].stdout;
+  }
+
+  saveFile() {
+
+  }
+
+  testFile() {
+
+  }
+
+  settings() {
+
   }
 }
