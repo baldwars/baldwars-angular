@@ -3,6 +3,13 @@ mat-card {
   margin: auto;
   mat-grid-list {
     height: 200px;
+
+    mat-grid-tile {
+      cursor: pointer;
+
+      color: white;
+      text-align: center;
+    }
   }
 }
 

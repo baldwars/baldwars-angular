@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../shared/models/user/user.model";
+import {UserService} from "../../shared/services/user/user.service";
+import {BehaviorSubject} from "rxjs";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-lobby',
@@ -8,37 +11,88 @@ import {User} from "../../shared/models/user/user.model";
 })
 export class LobbyComponent implements OnInit {
 
-  opponentList: Array<User> = [
+  /*opponentList: Array<User> = [
     {
       id: "1",
       username: "1",
-      eloScore: 1
+      rank: 1,
+      firstName: "1",
+      lastName: "1",
+      email: "email@email.com"
     },
     {
       id: "2",
       username: "2",
-      eloScore: 2
+      rank: 2
     },
     {
       id: "3",
       username: "3",
-      eloScore: 3
+      rank: 3
     },
     {
       id: "4",
       username: "4",
-      eloScore: 4
+      rank: 4
     },
     {
       id: "5",
       username: "5",
-      eloScore: 5
+      rank: 5
     }
-  ];
+  ];*/
 
-  constructor() { }
+  opponents: any[] = [];
+  isLoading: boolean = true;
+  loadingEmitter$ = new BehaviorSubject<boolean>(this.isLoading);
 
-  ngOnInit(): void {
+  counter = 0;
+  constructor(private userService: UserService) {
   }
 
+  ngOnInit(): void {
+/*    this.getUsers();
+    console.log(this.opponents);*/
+    this.getOpponents();
+    // setTimeout(() => console.log(this.opponents), 2000);
+  }
+
+/*  getAllUsers() {
+    this.userService.getAllUsers()
+      .then(res => {
+        /!*        console.log(typeof res);
+                console.log(res);*!/
+        this.opponents = res;
+      });
+  }*/
+
+  getOpponents() {
+    this.userService.getAllUsers()
+      .subscribe(res => {
+          console.log('res');
+          console.log(res);
+          let filteredRes = res.filter(opponent => opponent.id != this.userService.getCurrentUser()?.id);
+          filteredRes = filteredRes.filter(opponent => opponent.rank == this.userService.getCurrentUser()?.eloScore);
+          console.log(filteredRes);
+          if (filteredRes.length > 5)
+            filteredRes = filteredRes.slice(0,6);
+          this.opponents = filteredRes;
+          this.isLoading = false;
+/*          this.loadingEmitter$.next(this.isLoading);
+          console.log(this.loadingEmitter$);
+          console.log(this.opponents)*/
+        },
+        err => {
+          console.log('err')
+          console.log(err)
+        });
+  }
+
+  fightOpponent(opp: any) {
+    console.log(`fightOpponent(${ opp.username })`);
+  }
+
+  chooseLeek() {
+    console.log('chooseLeek()');
+  }
 }
