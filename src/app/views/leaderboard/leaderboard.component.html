@@ -1,1 +1,13 @@
 <p>leaderboard works!</p>
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.username }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="rank">
+    <mat-header-cell *matHeaderCellDef>Rank</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.rank }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>

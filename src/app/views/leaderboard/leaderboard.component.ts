@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../../shared/models/user/user.model";
+import {UserService} from "../../shared/services/user/user.service";
 
 @Component({
   selector: 'app-leaderboard',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
 
-  constructor() { }
+  dataSource: any[] = [];
+  columns: string[] = ['username', 'rank'];
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
+    this.fillDataSource();
+    // setTimeout(() => console.log('dataSource : ' + this.dateSource.length), 2000);
   }
 
+  private fillDataSource() {
+    this.userService.getAllUsers().subscribe(
+      res => {
+        this.dataSource = res.sort((a, b) => {
+          return b-a;
+        });
+      },
+      err => {
+        console.log('err');
+        console.log(err);
+      }
+    );
+  }
 }
