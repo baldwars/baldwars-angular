@@ -3,6 +3,8 @@ import {User} from "../../shared/models/user/user.model";
 import {UserService} from "../../shared/services/user/user.service";
 import {BehaviorSubject} from "rxjs";
 import {filter} from "rxjs/operators";
+import {MatDialog} from "@angular/material/dialog";
+import {LeekSelectionComponent} from "./leek-selection/leek-selection.component";
 
 @Component({
   selector: 'app-lobby',
@@ -47,7 +49,10 @@ export class LobbyComponent implements OnInit {
   loadingEmitter$ = new BehaviorSubject<boolean>(this.isLoading);
 
   counter = 0;
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    public dialog: MatDialog
+  ) {
   }
 
   ngOnInit(): void {
@@ -94,5 +99,10 @@ export class LobbyComponent implements OnInit {
 
   chooseLeek() {
     console.log('chooseLeek()');
+    const dialogRef = this.dialog.open(LeekSelectionComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
