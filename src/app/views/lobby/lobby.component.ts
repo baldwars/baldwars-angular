@@ -77,7 +77,7 @@ export class LobbyComponent implements OnInit {
           console.log('res');
           console.log(res);
           let filteredRes = res.filter(opponent => opponent.id != this.userService.getCurrentUser()?.id);
-          filteredRes = filteredRes.filter(opponent => opponent.rank == this.userService.getCurrentUser()?.eloScore);
+          filteredRes = filteredRes.filter(opponent => opponent.rank == this.userService.getCurrentUser()?.eloPoints);
           console.log(filteredRes);
           if (filteredRes.length > 5)
             filteredRes = filteredRes.slice(0,6);
@@ -106,14 +106,5 @@ export class LobbyComponent implements OnInit {
     });
   }
 
-  fun(id: number) {
-    this.userService.getUserWarrior(id).subscribe(
-      res => {
-        console.log(res)
-      },
-      err => {
-        console.log(err)
-      }
-    )
-  }
+
 }

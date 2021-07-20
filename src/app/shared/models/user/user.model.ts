@@ -1,5 +1,7 @@
 export interface User {
   id: string;
   username: string;
-  eloScore: number;
+  firstName: string;
+  lastName: string;
+  eloPoints: number;
 }

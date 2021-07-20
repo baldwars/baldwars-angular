@@ -49,9 +49,11 @@ export class AuthenticationService {
       if (!response) return false;
 
       const user: User = {
-        username: response?.username,
         id: response?.id,
-        eloScore: response?.rank
+        username: response?.username,
+        firstName: response?.firstName,
+        lastName: response?.lastName,
+        eloPoints: response?.eloPoints
       }
 
       AuthenticationService.setSessionToLocalStorage(res.token, user);
