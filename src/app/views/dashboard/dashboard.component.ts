@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
 
   currentUser?: User;
   warrior?: Warrior;
+  isLoading: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -21,26 +22,20 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
+    this.getWarrior();
   }
 
   getWarrior() {
     console.log(this.currentUser);
-    let x = this.warriorService.getAllWarriors().subscribe(
+    this.warriorService.getAllWarriors().subscribe(
       res => {
         this.warrior = res.filter(warrior => warrior.owner == this.currentUser?.id)[0];
+        this.isLoading = false;
         console.log(this.warrior)
       },
       err => {
         console.log(err)
       }
     );
-/*    this.userService.getUserWarrior(id).subscribe(
-      res => {
-        console.log(res)
-      },
-      err => {
-        console.log(err)
-      }
-    )*/
   }
 }

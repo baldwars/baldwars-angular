@@ -4,15 +4,47 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="fit" gutterSize="20px">
-    <mat-grid-tile>{{ this.warrior.name }}</mat-grid-tile>
-    <mat-grid-tile>Stats</mat-grid-tile>
-    <mat-grid-tile>Characteristics</mat-grid-tile>
-    <mat-grid-tile>Weapon</mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card *ngIf="!isLoading else loader">
+        <mat-card-title>Name</mat-card-title>
+        <mat-card-content>{{ warrior?.name}}</mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card *ngIf="!isLoading else loader">
+        <mat-card-title>Stats</mat-card-title>
+        <mat-card-content>
+          <ul>
+            <li>Level : {{ warrior?.level }}</li>
+            <li>Health : {{ warrior?.health }}</li>
+            <li>Moves : {{ warrior?.moves }}</li>
+            <li>Actions : {{ warrior?.actions }}</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card *ngIf="!isLoading else loader">
+        <mat-card-title>Weapon</mat-card-title>
+        <mat-card-content>User Weapon</mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card *ngIf="!isLoading else loader">
+        <mat-card-title>AI</mat-card-title>
+        <mat-card-content>User AI</mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <ng-template #loader>
+      <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
+    </ng-template>
   </mat-grid-list>
 </mat-card>
-<button (click)="getWarrior()">
-  CLICK
-</button>
+
 <mat-card class="combat-history-card">
   <mat-card-header>
     <mat-card-title>Combat history</mat-card-title>
