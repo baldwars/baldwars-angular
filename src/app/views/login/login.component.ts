@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.notifierService.notify('error', 'Invalid credentials.')
     }
 
-    await this.router.navigate(['editor']);
+    await this.router.navigate(['dashboard']);
   }
 
 }

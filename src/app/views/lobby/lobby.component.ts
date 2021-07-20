@@ -105,4 +105,15 @@ export class LobbyComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  fun(id: number) {
+    this.userService.getUserWarrior(id).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
 }

@@ -35,4 +35,8 @@ export class UserService {
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${ this.url }`);
   }
+
+  getUserWarrior(id: number): Observable<any> {
+    return this.http.get<any[]>(`${ this.url }/${ id }`);
+  }
 }

@@ -1,7 +1,7 @@
 <header fxLayout="row">
   <mat-toolbar color="primary">
     <div fxFlex="20">
-      <button (click)="sidenav.toggle()" mat-icon-button>
+      <button *ngIf="isLogged" (click)="sidenav.toggle()" mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
 
