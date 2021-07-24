@@ -23,4 +23,8 @@ export class WarriorService {
   getAllWarriors() {
     return this.http.get<Warrior[]>(`${ this.url }`);
   }
+
+  updateWarrior(warrior: Warrior) {
+    return this.http.put<Warrior>(`${ this.url }/update`, warrior);
+  }
 }

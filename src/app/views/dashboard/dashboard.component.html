@@ -1,6 +1,7 @@
 <mat-card class="menu-card">
   <mat-card-header>
     <mat-card-title>{{ this.currentUser?.username }}</mat-card-title>
+    <mat-progress-bar *ngIf="currentUser != null" mode="determinate" [value]="currentUser.xp*100/currentUser.maxXp"></mat-progress-bar>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="fit" gutterSize="20px">
@@ -13,14 +14,42 @@
 
     <mat-grid-tile>
       <mat-card *ngIf="!isLoading else loader">
-        <mat-card-title>Stats</mat-card-title>
+
+        <mat-card-title-group>
+          <mat-card-title>Stats</mat-card-title>
+          <p>Total skill points available : {{ warrior?.skillPoints }}</p>
+        </mat-card-title-group>
+
         <mat-card-content>
-          <ul>
-            <li>Level : {{ warrior?.level }}</li>
-            <li>Health : {{ warrior?.health }}</li>
-            <li>Moves : {{ warrior?.moves }}</li>
-            <li>Actions : {{ warrior?.actions }}</li>
-          </ul>
+          <mat-list>
+            <mat-list-item>
+              <h3 matLine>Level : {{ warrior?.level }}</h3>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3 matLine>Health : {{ warrior?.health }}</h3>
+              <mat-icon (click)="decreaseHealth()">horizontal_rule</mat-icon>
+              <mat-icon (click)="increaseHealth()">add</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3 matLine>Moves : {{ warrior?.moves }}</h3>
+              <mat-icon (click)="decreaseMoves()">horizontal_rule</mat-icon>
+              <mat-icon (click)="increaseMoves()">add</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3 matLine>Actions : {{ warrior?.actions }}</h3>
+              <mat-icon (click)="decreaseActions()">horizontal_rule</mat-icon>
+              <mat-icon (click)="increaseActions()">add</mat-icon>
+            </mat-list-item>
+          </mat-list>
+          <mat-card-actions align="end" style="margin-top: 2px">
+            <button mat-button (click)="updateWarrior()">
+              <mat-icon>save</mat-icon>
+            </button>
+          </mat-card-actions>
+
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

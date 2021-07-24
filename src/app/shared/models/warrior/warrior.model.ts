@@ -5,5 +5,5 @@ export interface Warrior {
   health: number,
   moves: number,
   actions: number,
-  owner: string,
+  skillPoints: number,
 }

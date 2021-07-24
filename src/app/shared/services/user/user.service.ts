@@ -27,7 +27,15 @@ export class UserService {
     return this.http.get<any[]>(`${ this.url }`);
   }
 
-  incrementUserXp() {
-    return
+  increaseXp(): Observable<any> {
+    return this.http.put(`${ this.url }/increaseXp/${ this.getCurrentUser()?.id }`, {})
+  }
+
+  increaseLevel(): Observable<any> {
+    return this.http.put(`${ this.url }/increaseLevel/${ this.getCurrentUser()?.id }`, {})
+  }
+
+  increaseSkillPoints(): Observable<any> {
+    return this.http.put(`${ this.url }/increaseSp/${ this.getCurrentUser()?.id }`, {})
   }
 }

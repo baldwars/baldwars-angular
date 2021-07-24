@@ -53,7 +53,12 @@ export class AuthenticationService {
         username: response?.username,
         firstName: response?.firstName,
         lastName: response?.lastName,
-        eloPoints: response?.eloPoints
+        eloPoints: response?.eloPoints,
+        xp: response?.xp,
+        maxXp: response?.maxXp,
+        level: response?.level,
+        baldCoins: response?.baldCoins,
+        warrior: response?.warrior,
       }
 
       AuthenticationService.setSessionToLocalStorage(res.token, user);
@@ -74,7 +79,7 @@ export class AuthenticationService {
     localStorage.clear()
   }
 
-  private static setSessionToLocalStorage(token: string, user: User | undefined): void {
+  static setSessionToLocalStorage(token: string, user: User | undefined): void {
     const session = JSON.stringify({
       token,
       user,

@@ -15,6 +15,17 @@
         list-style-type: none;
         padding-left: 0px;
       }
+
+      ::ng-deep mat-list-item {
+        max-height: 20px;
+        //padding: 0;
+
+        mat-icon {
+          z-index: 1;
+          font-size: 20px;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
