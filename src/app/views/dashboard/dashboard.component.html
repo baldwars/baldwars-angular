@@ -1,7 +1,12 @@
 <mat-card class="menu-card">
   <mat-card-header>
     <mat-card-title>{{ this.currentUser?.username }}</mat-card-title>
-    <mat-progress-bar *ngIf="currentUser != null" mode="determinate" [value]="currentUser.xp*100/currentUser.maxXp"></mat-progress-bar>
+    <mat-progress-bar
+      *ngIf="currentUser != null" mode="determinate"
+      [value]="currentUser.xp*100/currentUser.maxXp"
+      (mouseover)="displayXpProgress()"
+      [matTooltip]="progressTooltip" matTooltipPosition="right">
+    </mat-progress-bar>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="fit" gutterSize="20px">

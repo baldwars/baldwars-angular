@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   currentUser?: User;
   warrior?: Warrior;
   isLoading: boolean = true;
-  xpBar = 0;
+  progressTooltip = "";
 
   constructor(
     private userService: UserService,
@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
     AuthenticationService.setSessionToLocalStorage(this.authenticationService.session().token, this.currentUser);
   }*/
 
+
   decreaseHealth() {
     if (this.warrior && this.warrior.health - SkillGain.HEALTH_GAIN >= 100) {
       this.warrior.skillPoints += SkillCosts.HEALTH_COST;
@@ -117,8 +118,6 @@ export class DashboardComponent implements OnInit {
     if (this.warrior) {
       this.warriorService.updateWarrior(this.warrior).subscribe(
         res => {
-          console.log("res")
-          console.log(res)
           this.warrior = res;
           AuthenticationService.setSessionToLocalStorage(
             this.authenticationService.session().token,
@@ -130,5 +129,9 @@ export class DashboardComponent implements OnInit {
         }
       )
     }
+  }
+
+  displayXpProgress() {
+    this.progressTooltip = `XP : ${ this.currentUser?.xp }/${ this.currentUser?.maxXp }`;
   }
 }
