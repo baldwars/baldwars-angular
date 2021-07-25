@@ -7,6 +7,10 @@ import {AuthenticationService} from "../../shared/services/authentication/authen
 import {NotifierService} from "angular-notifier";
 import {SkillCosts} from "../../shared/models/warrior/skill-costs";
 import {SkillGain} from "../../shared/models/warrior/skill-gain";
+import {WeaponStoreModel} from "../../shared/models/weapons/weaponStore.model";
+import {WeaponService} from "../../shared/services/weapon/weapon.service";
+import {MatDialog} from "@angular/material/dialog";
+import {WeaponDetailsDialogComponent} from "./weapon-details-dialog/weapon-details-dialog.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +21,7 @@ export class DashboardComponent implements OnInit {
 
   currentUser?: User;
   warrior?: Warrior;
+  weapons?: any;
   isLoading: boolean = true;
   progressTooltip = "";
 
@@ -25,11 +30,23 @@ export class DashboardComponent implements OnInit {
     private warriorService: WarriorService,
     private authenticationService: AuthenticationService,
     private notifierService: NotifierService,
+    private weaponService: WeaponService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.warrior = this.currentUser?.warrior;
+    this.weaponService.getUserWeapon().subscribe(
+      res => {
+        this.weapons = res
+        console.log(this.weapons)
+      },
+      err => {
+        console.log("err")
+        console.log(err)
+      }
+    )
     this.isLoading = false;
   }
 
@@ -122,7 +139,8 @@ export class DashboardComponent implements OnInit {
           AuthenticationService.setSessionToLocalStorage(
             this.authenticationService.session().token,
             this.currentUser
-          )
+          );
+          this.notifierService.notify("success", "Skill points saved.")
         },
         err => {
           console.log(err)
@@ -133,5 +151,18 @@ export class DashboardComponent implements OnInit {
 
   displayXpProgress() {
     this.progressTooltip = `XP : ${ this.currentUser?.xp }/${ this.currentUser?.maxXp }`;
+  }
+
+  openDialog(name: string, level: number, damage: number, cost: number, minRange: number, maxRange: number) {
+    this.dialog.open(WeaponDetailsDialogComponent, {
+      data: {
+        name: name,
+        level: level,
+        damage: damage,
+        cost: cost,
+        minRange: minRange,
+        maxRange: maxRange,
+      }
+    });
   }
 }

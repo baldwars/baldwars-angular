@@ -62,7 +62,36 @@
     <mat-grid-tile>
       <mat-card *ngIf="!isLoading else loader">
         <mat-card-title>Weapon</mat-card-title>
-        <mat-card-content>User Weapon</mat-card-content>
+        <mat-card-content [style.overflow]="'auto'" class="weapon-card">
+          <mat-list *ngFor="let weapon of weapons">
+            <mat-list-item>
+              <button mat-button (click)="openDialog(weapon.name, weapon.level, weapon.damage, weapon.cost, weapon.minRange, weapon.maxRange)">
+                Name : {{ weapon.name }}
+              </button>
+              <h3></h3>
+            </mat-list-item>
+
+<!--            <mat-list-item>
+              <h3>Level : {{ weapon.level }}</h3>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3>Damage : {{ weapon.damage }}</h3>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3>Cost : {{ weapon.cost }}</h3>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3>Minimum range : {{ weapon.minRange }}</h3>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3>Maximum range : {{ weapon.maxRange }}</h3>
+            </mat-list-item>-->
+          </mat-list>
+        </mat-card-content>
       </mat-card>
     </mat-grid-tile>
 
