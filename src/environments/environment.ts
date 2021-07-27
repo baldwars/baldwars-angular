@@ -3,9 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  endpoint: 'https://baldwars-api.chukitipok.qtmsheep.com/api',
-  // endpoint: 'http://localhost:7000/api',
-  // endpoint: 'http://localhost:8080/api',
+  endpoint: 'http://localhost:7000/api',
   production: false
 };
 
