@@ -1,4 +1,4 @@
-export interface WeaponStoreModel {
+export interface WeaponStore {
   id: number,
   name: string,
   level: number,

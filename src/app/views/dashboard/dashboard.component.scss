@@ -2,10 +2,17 @@
   width: 60%;
   margin: auto;
 
-  mat-progress-bar {
-    height: 8px;
-    cursor: pointer;
-    width: 85%;
+  ::ng-deep mat-progress-bar {
+    height: 22px;
+    width: 10%;
+  }
+
+  mat-progress-bar .md-container {
+    height: 20px;
+  }
+
+  mat-progress-bar .md-container .md-bar {
+    height: 20px;
   }
 
   mat-grid-list {
@@ -37,4 +44,41 @@
 
 .combat-history-card {
   margin-top: 20px;
+}
+
+mat-progress-bar {
+  margin-left: auto;
+  margin-right: auto;
+  height: 12px;
+  width: 100%;
+}
+
+mat-divider {
+  height: 50px;
+}
+
+mat-progress-bar:hover {
+  cursor: pointer;
+}
+
+.plusSkill {
+  font-size: 24px;
+  color: purple;
+  cursor: pointer;
+}
+
+.plusSkillDisabled {
+  font-size: 24px;
+  color: lightgray;
+  cursor: not-allowed;
+}
+
+.skillValue {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.scripts:hover {
+  cursor: pointer;
+  background: lightgray;
 }

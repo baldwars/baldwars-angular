@@ -11,11 +11,14 @@
     <div fxFlex></div>
 
     <div *ngIf="isLogged" fxFlex="20" fxLayout="row" fxLayoutAlign="space-evenly center">
-      <button mat-icon-button>
-        <fa-icon [icon]="userIcon"></fa-icon> {{ username }}
-      </button>
-
-      <button mat-icon-button (click)="logout()">
+      <div style="font-size: 14px;">
+        {{ user?.baldCoins }} <fa-icon [icon]="baldCoinsIcon"></fa-icon>
+      </div>
+      <div style="font-size: 14px;">
+        {{ username | titlecase }} <fa-icon [icon]="userIcon"></fa-icon>
+      </div>
+      <mat-divider [vertical]="true" style="height: 50px;"></mat-divider>
+      <button style="margin-right: 16px;" mat-icon-button (click)="logout()">
         <mat-icon>logout</mat-icon> Logout
       </button>
     </div>

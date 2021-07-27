@@ -3,6 +3,8 @@ import {CodeSendService} from "../../shared/services/code-transmission/code-send
 import {UserCode} from "../../shared/models/editor/user-code.model";
 import {UserService} from "../../shared/services/user/user.service";
 import {NotifierService} from "angular-notifier";
+import {ScriptService} from "../../shared/services/scripts/script.service";
+import {Script} from "../../shared/models/script.model";
 
 @Component({
   selector: 'app-editor',
@@ -11,52 +13,55 @@ import {NotifierService} from "angular-notifier";
 })
 export class EditorComponent implements OnInit {
   editorOptions = {theme: 'vs-dark', language: 'c'};
-  userCode: UserCode = {
-    username: this.userService.getCurrentUser()?.username,
-    code: `#include <stdio.h>
-int main() {
-   // printf() displays the string inside quotation
-   printf("Hello, World!");
-   return 0;
-}`
-  };
+//   userCode: UserCode = {
+//     username: this.userService.getCurrentUser()?.username,
+//     code: `#include <stdio.h>
+// int main() {
+//    // printf() displays the string inside quotation
+//    printf("Hello, World!");
+//    return 0;
+// }`
+//   };
   serverResponse = "";
-  /*code: string= `#include <stdio.h>
-int main() {
-   // printf() displays the string inside quotation
-   printf("Hello, World!");
-   return 0;
-}`;*/
+
+  scripts: Script[] = [];
 
   constructor(
     private codeSendService: CodeSendService,
     private userService: UserService,
+    private scriptService: ScriptService,
     private notifierService: NotifierService
   ) { }
 
   ngOnInit(): void {
+    this.scriptService.getUserScripts(this.userService.getUserId())
+      .subscribe((response: Script[]) => this.scripts = response);
   }
 
   onInit(editor: any) {
     let line = editor.getPosition();
   }
 
-  async sendCode() {
-    // const response = await this.codeSendService.sendCode(this.userCode);
-    const response = await this.codeSendService.mockSend(this.userCode);
-    if (response.phases[0].status !== 0) {
-      console.log('compil error occurred')
-      this.notifierService.notify('error', 'Compilation error')
-      this.serverResponse = "Compilation error : " + response.phases[0].stderr;
-      return;
-    }
-    if (response.phases[1].status !== 0) {
-      console.log('execute error occurred')
-      this.notifierService.notify('error', 'Execution error')
-      this.serverResponse = "Execution error : " + response.phases[1].stderr;
-      return;
-    }
-    console.log("response :", response);
-    this.serverResponse = response.phases[1].stdout;
+  testScript() {
+
   }
+
+  // async sendCode() {
+  //   // const response = await this.codeSendService.sendCode(this.userCode);
+  //   const response = await this.codeSendService.mockSend(this.userCode);
+  //   if (response.phases[0].status !== 0) {
+  //     console.log('compil error occurred')
+  //     this.notifierService.notify('error', 'Compilation error')
+  //     this.serverResponse = "Compilation error : " + response.phases[0].stderr;
+  //     return;
+  //   }
+  //   if (response.phases[1].status !== 0) {
+  //     console.log('execute error occurred')
+  //     this.notifierService.notify('error', 'Execution error')
+  //     this.serverResponse = "Execution error : " + response.phases[1].stderr;
+  //     return;
+  //   }
+  //   console.log("response :", response);
+  //   this.serverResponse = response.phases[1].stdout;
+  // }
 }

@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import {faCoins, faUserAlt} from '@fortawesome/free-solid-svg-icons'
 import { AuthenticationService } from "../../services/authentication/authentication.service";
 import { Router } from "@angular/router";
 import {UserService} from "../../services/user/user.service";
+import {User} from "../../models/user/user.model";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,9 @@ import {UserService} from "../../services/user/user.service";
 export class HeaderComponent implements OnInit {
 
   userIcon = faUserAlt;
+  baldCoinsIcon = faCoins;
 
+  user?: User;
   username?: string;
   isLogged: boolean = false;
 
@@ -26,7 +29,10 @@ export class HeaderComponent implements OnInit {
     this.authService.isLogged().then(logged => {
       this.isLogged = logged;
       if (this.isLogged) {
-        this.username = this.userService.getUserUsername();
+        this.userService.getCurrentUser().subscribe((response: User) => {
+          this.user = response;
+          this.username = this.userService.getUserUsername();
+        });
       }
     });
   }
@@ -34,7 +40,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getEmitter().subscribe(() => {
       this.isLogged = true;
-      this.username = this.userService.getUserUsername();
     });
   }
 

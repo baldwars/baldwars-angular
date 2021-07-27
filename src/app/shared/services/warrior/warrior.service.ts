@@ -3,6 +3,8 @@ import {environment} from "../../../../environments/environment";
 import {AuthenticationService} from "../authentication/authentication.service";
 import {HttpClient} from "@angular/common/http";
 import {Warrior} from "../../models/warrior/warrior.model";
+import {Observable} from "rxjs";
+import {UserService} from "../user/user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class WarriorService {
   private url = environment.endpoint + '/warriors';
 
   constructor(
-    private authService: AuthenticationService,
+    private userService: UserService,
     private http: HttpClient
   ) { }
 
@@ -26,5 +28,9 @@ export class WarriorService {
 
   updateWarrior(warrior: Warrior) {
     return this.http.put<Warrior>(`${ this.url }/update`, warrior);
+  }
+
+  updateWarriorSkill(warriorId: number, skill: string, amount: number): Observable<Warrior>{
+    return this.http.put<Warrior>(`${ this.url }/${ warriorId }`, {skill, amount});
   }
 }

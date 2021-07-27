@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
-import {AuthenticationService} from "../authentication/authentication.service";
-import {UserService} from "../user/user.service";
 import {PurchaseRequestModel} from "../../models/weapons/purchaseRequest.model";
 import {Observable} from "rxjs";
-import {WeaponStoreModel} from "../../models/weapons/weaponStore.model";
+import {WeaponStore} from "../../models/weapons/weaponStore.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +12,14 @@ export class WeaponService {
 
   private url = environment.endpoint + '/weapons'
 
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-  ) { }
+  constructor(private http: HttpClient) { }
 
-  getWeaponsFromStore() {
-    return this.http.get(`${ this.url }/store`);
+  getWeaponsFromStore(): Observable<WeaponStore[]> {
+    return this.http.get<WeaponStore[]>(`${ this.url }/store`);
   }
 
-  getUserWeapon(): Observable<any> {
-    return this.http.get(`${ this.url }/user/${ this.userService.getCurrentUser()?.id }`);
+  getUserWeapons(userId: string): Observable<WeaponStore[]> {
+    return this.http.get<WeaponStore[]>(`${ this.url }/user/${ userId }`);
   }
 
   purchaseWeapon(purchaseRequest: PurchaseRequestModel) {

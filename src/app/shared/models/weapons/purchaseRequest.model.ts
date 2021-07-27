@@ -1,6 +1,6 @@
-import {WeaponStoreModel} from "./weaponStore.model";
+import {WeaponStore} from "./weaponStore.model";
 
 export interface PurchaseRequestModel {
   id: string,
-  weapon: WeaponStoreModel,
+  weapon: WeaponStore,
 }

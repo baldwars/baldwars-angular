@@ -13,7 +13,7 @@ export class FightService {
 
   constructor(private http: HttpClient) { }
 
-  getUserFightsHistory(userId: string): Observable<Fight> {
-    return this.http.get<Fight>(`${ this.url }/user/${ userId }`);
+  getUserFightsHistory(userId: string): Observable<Fight[]> {
+    return this.http.get<Fight[]>(`${ this.url }/user/${ userId }`);
   }
 }

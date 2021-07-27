@@ -3,14 +3,29 @@ import {User} from "../../shared/models/user/user.model";
 import {UserService} from "../../shared/services/user/user.service";
 import {WarriorService} from "../../shared/services/warrior/warrior.service";
 import {Warrior} from "../../shared/models/warrior/warrior.model";
-import {AuthenticationService} from "../../shared/services/authentication/authentication.service";
 import {NotifierService} from "angular-notifier";
 import {SkillCosts} from "../../shared/models/warrior/skill-costs";
 import {SkillGain} from "../../shared/models/warrior/skill-gain";
-import {WeaponStoreModel} from "../../shared/models/weapons/weaponStore.model";
+import {WeaponStore} from "../../shared/models/weapons/weaponStore.model";
 import {WeaponService} from "../../shared/services/weapon/weapon.service";
 import {MatDialog} from "@angular/material/dialog";
 import {WeaponDetailsDialogComponent} from "./weapon-details-dialog/weapon-details-dialog.component";
+import {ScriptService} from "../../shared/services/scripts/script.service";
+import {Script} from "../../shared/models/script.model";
+import {
+  faChartBar,
+  faFan,
+  faFileCode, faHandsHelping,
+  faHeart, faHistory, faPlus,
+  faShoePrints,
+  faStar,
+  faTerminal,
+  faUserNinja
+} from "@fortawesome/free-solid-svg-icons";
+import {Fight} from "../../shared/models/fight/fight";
+import {FightService} from "../../shared/services/fights/fight.service";
+import {Router} from "@angular/router";
+import {FightHistory} from "../../shared/models/fight/FightHistory";
 
 @Component({
   selector: 'app-dashboard',
@@ -21,136 +36,116 @@ export class DashboardComponent implements OnInit {
 
   currentUser?: User;
   warrior?: Warrior;
-  weapons?: any;
+  weapons?: WeaponStore[];
+  scripts?: Script[];
+  fights?: Fight[];
+  displayedFights?: FightHistory[];
   isLoading: boolean = true;
   progressTooltip = "";
+
+  victories?: number;
+  draws?: number;
+  defeats?: number;
+
+  terminalIcon = faTerminal;
+  scriptIcon = faFileCode;
+  warriorIcon = faUserNinja;
+  userIcon = faChartBar;
+  weaponsIcon = faFan;
+  fightsIcon = faHistory;
+  healthPointsIcon = faHeart;
+  movePointsIcon = faShoePrints;
+  actionPointsIcon = faStar;
+  plusIcon = faPlus
 
   constructor(
     private userService: UserService,
     private warriorService: WarriorService,
-    private authenticationService: AuthenticationService,
     private notifierService: NotifierService,
     private weaponService: WeaponService,
+    private scriptService: ScriptService,
+    private fightService: FightService,
     public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
-    this.warrior = this.currentUser?.warrior;
-    this.weaponService.getUserWeapon().subscribe(
-      res => {
-        this.weapons = res
-        console.log(this.weapons)
+    this.userService.getCurrentUser().subscribe((response: User) => {
+      this.currentUser = response;
+      this.warrior = this.currentUser?.warrior;
+      this.isLoading = false;
+    });
+
+    this.weaponService.getUserWeapons(this.userService.getUserId()).subscribe(
+      (response: WeaponStore[]) => {
+        this.weapons = response;
+        this.isLoading = false;
       },
-      err => {
-        console.log("err")
-        console.log(err)
+      () => {
+        this.notifierService.notify('error', 'The user does not exist.')
+      }
+    );
+
+    this.scriptService.getUserScripts(this.userService.getUserId()).subscribe(
+      (response: Script[]) => {
+        this.scripts = response;
       }
     )
-    this.isLoading = false;
+
+    this.fightService.getUserFightsHistory(this.userService.getUserId())
+      .subscribe((response: Fight[]) => {
+        this.fights = response;
+        this.getFightsStats();
+        this.displayedFights = this.fights.map((fight: Fight) => {
+          const color = this.getFightColor(fight);
+          return new FightHistory(fight, color);
+        })
+      });
   }
 
-  saveSkillPoints() {
-    console.log("saveSkillPoints");
+  getFightsStats() {
+    this.victories = this.getFightVictories();
+    this.draws = this.getFightDraws();
+    this.defeats = this.getFightDefeats();
   }
 
-  increaseHealth() {
-    if (this.warrior && this.warrior.skillPoints - SkillCosts.HEALTH_COST >= 0) {
-      this.warrior.skillPoints -= SkillCosts.HEALTH_COST;
-      this.warrior.health += SkillGain.HEALTH_GAIN;
-    }
-    else {
-      this.notifierService.notify("error", "You do not have enough skill points.")
-    }
-  }
-
-  increaseMoves() {
-    if (this.warrior && this.warrior.skillPoints - SkillCosts.MOVE_COST > 0) {
-      this.warrior.skillPoints -= SkillCosts.MOVE_COST;
-      this.warrior.moves += SkillGain.MOVE_GAIN;
-    }
-    else {
-      this.notifierService.notify("error", "You do not have enough skill points.")
-    }
-  }
-
-  increaseActions() {
-    if (this.warrior && this.warrior.skillPoints - SkillCosts.ACTION_COST > 0) {
-      this.warrior.skillPoints -= SkillCosts.ACTION_COST;
-      this.warrior.actions += SkillGain.ACTION_GAIN;
-    }
-    else {
-      this.notifierService.notify("error", "You do not have enough skill points.")
+  skillUp(skill: string) {
+    if (this.warrior && this.warrior?.skillPoints > 0) {
+      this.warriorService.updateWarriorSkill(this.warrior.id, skill, 1)
+        .subscribe((response: Warrior) => {
+          this.warrior = response;
+        });
     }
   }
 
-  increaseSp() {
-    this.userService.increaseSkillPoints().subscribe(
-      res => {
-        console.log("res : ");
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    )
+  getFightVictories(): number {
+    if (this.fights !== undefined) {
+      return this.fights.filter(fight => fight.winner === this.currentUser?.id).length;
+    }
+
+    return 0;
   }
 
-/*  updateLocalStorage() {
-    AuthenticationService.setSessionToLocalStorage(this.authenticationService.session().token, this.currentUser);
-  }*/
-
-
-  decreaseHealth() {
-    if (this.warrior && this.warrior.health - SkillGain.HEALTH_GAIN >= 100) {
-      this.warrior.skillPoints += SkillCosts.HEALTH_COST;
-      this.warrior.health -= SkillGain.HEALTH_GAIN;
+  getFightDraws(): number {
+    if (this.fights !== undefined) {
+      return this.fights.filter(fight => fight.winner === null).length;
     }
-    else {
-      this.notifierService.notify("error", "Health cannot be less than 100.")
-    }
+
+    return 0;
   }
 
-  decreaseMoves() {
-    if (this.warrior && this.warrior.moves - SkillGain.MOVE_GAIN >= 3) {
-      this.warrior.skillPoints += SkillCosts.MOVE_COST;
-      this.warrior.moves -= SkillGain.MOVE_GAIN;
+  getFightDefeats(): number {
+    if (this.fights !== undefined) {
+      return this.fights.filter(fight => fight.winner !== this.currentUser?.id).length;
     }
-    else {
-      this.notifierService.notify("error", "Moves cannot be less than 30.")
-    }
-  }
 
-  decreaseActions() {
-    if (this.warrior && this.warrior.actions - SkillGain.ACTION_GAIN >= 10) {
-      this.warrior.skillPoints += SkillCosts.ACTION_COST;
-      this.warrior.actions -= SkillGain.ACTION_GAIN;
-    }
-    else {
-      this.notifierService.notify("error", "Actions cannot be less than 10.")
-    }
-  }
-
-  updateWarrior() {
-    if (this.warrior) {
-      this.warriorService.updateWarrior(this.warrior).subscribe(
-        res => {
-          this.warrior = res;
-          AuthenticationService.setSessionToLocalStorage(
-            this.authenticationService.session().token,
-            this.currentUser
-          );
-          this.notifierService.notify("success", "Skill points saved.")
-        },
-        err => {
-          console.log(err)
-        }
-      )
-    }
+    return 0;
   }
 
   displayXpProgress() {
-    this.progressTooltip = `XP : ${ this.currentUser?.xp }/${ this.currentUser?.maxXp }`;
+    if (this.currentUser) {
+      this.progressTooltip = `XP : ${ this.currentUser.xp * 100 / this.currentUser.maxXp }%`;
+    }
   }
 
   openDialog(name: string, level: number, damage: number, cost: number, minRange: number, maxRange: number) {
@@ -164,5 +159,20 @@ export class DashboardComponent implements OnInit {
         maxRange: maxRange,
       }
     });
+  }
+
+  editScript(script: Script) {
+    this.router.navigate(["editor"], {queryParams: {script: script.id}}).then();
+  }
+
+  getFightColor(fight: Fight): string {
+    if (fight.winner === this.currentUser?.id) {
+      return 'lightGreen';
+    }
+    else if (fight.winner === null) {
+      return 'lightGray';
+    }
+
+    return 'lightCoral';
   }
 }

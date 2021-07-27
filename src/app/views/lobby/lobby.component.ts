@@ -58,7 +58,7 @@ export class LobbyComponent implements OnInit {
   ngOnInit(): void {
 /*    this.getUsers();
     console.log(this.opponents);*/
-    this.getOpponents();
+    // this.getOpponents();
     // setTimeout(() => console.log(this.opponents), 2000);
   }
 
@@ -71,27 +71,27 @@ export class LobbyComponent implements OnInit {
       });
   }*/
 
-  getOpponents() {
-    this.userService.getAllUsers()
-      .subscribe(res => {
-          console.log('res');
-          console.log(res);
-          let filteredRes = res.filter(opponent => opponent.id != this.userService.getCurrentUser()?.id);
-          filteredRes = filteredRes.filter(opponent => opponent.rank == this.userService.getCurrentUser()?.eloPoints);
-          console.log(filteredRes);
-          if (filteredRes.length > 5)
-            filteredRes = filteredRes.slice(0,6);
-          this.opponents = filteredRes;
-          this.isLoading = false;
-/*          this.loadingEmitter$.next(this.isLoading);
-          console.log(this.loadingEmitter$);
-          console.log(this.opponents)*/
-        },
-        err => {
-          console.log('err')
-          console.log(err)
-        });
-  }
+//   getOpponents() {
+//     this.userService.getAllUsers()
+//       .subscribe(res => {
+//           console.log('res');
+//           console.log(res);
+//           let filteredRes = res.filter(opponent => opponent.id != this.userService.getCurrentUser()?.id);
+//           filteredRes = filteredRes.filter(opponent => opponent.rank == this.userService.getCurrentUser()?.eloPoints);
+//           console.log(filteredRes);
+//           if (filteredRes.length > 5)
+//             filteredRes = filteredRes.slice(0,6);
+//           this.opponents = filteredRes;
+//           this.isLoading = false;
+// /*          this.loadingEmitter$.next(this.isLoading);
+//           console.log(this.loadingEmitter$);
+//           console.log(this.opponents)*/
+//         },
+//         err => {
+//           console.log('err')
+//           console.log(err)
+//         });
+//   }
 
   fightOpponent(opp: any) {
     console.log(`fightOpponent(${ opp.username })`);
