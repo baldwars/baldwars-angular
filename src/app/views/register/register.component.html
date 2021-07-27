@@ -29,6 +29,14 @@
         </mat-form-field>
 
         <mat-form-field class="full-width-input">
+          <mat-label>Warrior name</mat-label>
+          <input matInput formControlName="warrior" required>
+          <mat-error *ngIf="warrior?.invalid">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" required>
           <mat-error *ngIf="email?.invalid">

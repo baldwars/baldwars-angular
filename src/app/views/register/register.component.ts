@@ -27,7 +27,8 @@ export class RegisterComponent implements OnInit {
       lastName: ['', [Validators.required, AccountValidator.names]],
       username: ['', [Validators.required, AccountValidator.username]],
       email: ['', [Validators.required, AccountValidator.email]],
-      password: ['', [Validators.required, AccountValidator.password]]
+      password: ['', [Validators.required, AccountValidator.password]],
+      warrior: ['', [Validators.required]]
     });
   }
 
@@ -48,6 +49,7 @@ export class RegisterComponent implements OnInit {
   get firstName() { return this.registerForm.get('firstName'); }
   get lastName() { return this.registerForm.get('lastName'); }
   get username() { return this.registerForm.get('username'); }
+  get warrior() { return this.registerForm.get('warrior'); }
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
 }
