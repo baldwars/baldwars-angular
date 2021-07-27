@@ -1,23 +1,50 @@
 <mat-card class="menu-card">
   <mat-card-header>
     <mat-card-title>{{ this.currentUser?.username }}</mat-card-title>
-    <mat-progress-bar
+<!--    <mat-progress-bar
       *ngIf="currentUser != null" mode="determinate"
       [value]="currentUser.xp*100/currentUser.maxXp"
       (mouseover)="displayXpProgress()"
       [matTooltip]="progressTooltip" matTooltipPosition="right">
-    </mat-progress-bar>
+    </mat-progress-bar>-->
   </mat-card-header>
   <mat-divider></mat-divider>
-  <mat-grid-list cols="2" rowHeight="fit" gutterSize="20px">
-    <mat-grid-tile>
+  <mat-grid-list cols="2" rowHeight="fit" gutterSize="10px">
+    <mat-grid-tile rowspan="2">
       <mat-card *ngIf="!isLoading else loader">
         <mat-card-title>Name</mat-card-title>
-        <mat-card-content>{{ warrior?.name}}</mat-card-content>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <h3>Warrior name : {{ warrior?.name}}</h3>
+            </mat-list-item>
+
+            <mat-list-item>
+              <h3 matLine>Level : {{ currentUser?.level }}</h3>
+              <mat-progress-bar
+                color="accent"
+                *ngIf="currentUser != null" mode="determinate"
+                [value]="currentUser.xp*100/currentUser.maxXp"
+                (mouseover)="displayXpProgress()"
+                [matTooltip]="progressTooltip" matTooltipPosition="right">
+              </mat-progress-bar>
+            </mat-list-item>
+            <div matSubheader></div>
+            <mat-list-item>
+              <h3>Wins : </h3>
+            </mat-list-item>
+            <mat-list-item>
+              <h3>Draws : </h3>
+            </mat-list-item>
+            <mat-list-item>
+              <h3>Losses : </h3>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
       </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile>
+    <mat-grid-tile rowspan="2">
       <mat-card *ngIf="!isLoading else loader">
 
         <mat-card-title-group>
@@ -25,7 +52,7 @@
           <p>Total skill points available : {{ warrior?.skillPoints }}</p>
         </mat-card-title-group>
 
-        <mat-card-content>
+        <mat-card-content class="customCardContent">
           <mat-list>
             <mat-list-item>
               <h3 matLine>Level : {{ warrior?.level }}</h3>
@@ -62,34 +89,13 @@
     <mat-grid-tile>
       <mat-card *ngIf="!isLoading else loader">
         <mat-card-title>Weapon</mat-card-title>
-        <mat-card-content [style.overflow]="'auto'" class="weapon-card">
+        <mat-card-content class="customCardContent">
           <mat-list *ngFor="let weapon of weapons">
             <mat-list-item>
               <button mat-button (click)="openDialog(weapon.name, weapon.level, weapon.damage, weapon.cost, weapon.minRange, weapon.maxRange)">
                 Name : {{ weapon.name }}
               </button>
-              <h3></h3>
             </mat-list-item>
-
-<!--            <mat-list-item>
-              <h3>Level : {{ weapon.level }}</h3>
-            </mat-list-item>
-
-            <mat-list-item>
-              <h3>Damage : {{ weapon.damage }}</h3>
-            </mat-list-item>
-
-            <mat-list-item>
-              <h3>Cost : {{ weapon.cost }}</h3>
-            </mat-list-item>
-
-            <mat-list-item>
-              <h3>Minimum range : {{ weapon.minRange }}</h3>
-            </mat-list-item>
-
-            <mat-list-item>
-              <h3>Maximum range : {{ weapon.maxRange }}</h3>
-            </mat-list-item>-->
           </mat-list>
         </mat-card-content>
       </mat-card>
