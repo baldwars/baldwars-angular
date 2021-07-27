@@ -12,7 +12,7 @@
 
     <div *ngIf="isLogged" fxFlex="20" fxLayout="row" fxLayoutAlign="space-evenly center">
       <button mat-icon-button>
-        <fa-icon [icon]="userIcon"></fa-icon> {{ currentUser?.username }}
+        <fa-icon [icon]="userIcon"></fa-icon> {{ username }}
       </button>
 
       <button mat-icon-button (click)="logout()">

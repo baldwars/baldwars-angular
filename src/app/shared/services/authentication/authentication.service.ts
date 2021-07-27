@@ -3,9 +3,9 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { LoginResponse } from "../../models/authentication/login-response.model";
 import { environment } from "../../../../environments/environment";
 import { Session } from "../../models/authentication/session.model";
-import { User } from "../../models/user/user.model";
 import { NewAccount } from "../../models/user/new-account.model";
 import { Observable } from "rxjs";
+import {UserSession} from "../../models/authentication/user-session.model";
 
 @Injectable({
   providedIn: 'root'
@@ -48,17 +48,9 @@ export class AuthenticationService {
 
       if (!response) return false;
 
-      const user: User = {
+      const user: UserSession = {
         id: response?.id,
-        username: response?.username,
-        firstName: response?.firstName,
-        lastName: response?.lastName,
-        eloPoints: response?.eloPoints,
-        xp: response?.xp,
-        maxXp: response?.maxXp,
-        level: response?.level,
-        baldCoins: response?.baldCoins,
-        warrior: response?.warrior,
+        username: response?.username
       }
 
       AuthenticationService.setSessionToLocalStorage(res.token, user);
@@ -79,7 +71,7 @@ export class AuthenticationService {
     localStorage.clear()
   }
 
-  static setSessionToLocalStorage(token: string, user: User | undefined): void {
+  private static setSessionToLocalStorage(token: string, user: UserSession | undefined): void {
     const session = JSON.stringify({
       token,
       user,
