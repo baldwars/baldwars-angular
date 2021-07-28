@@ -9,7 +9,7 @@ import {WeaponService} from "../../shared/services/weapon/weapon.service";
 import {MatDialog} from "@angular/material/dialog";
 import {WeaponDetailsDialogComponent} from "./weapon-details-dialog/weapon-details-dialog.component";
 import {ScriptService} from "../../shared/services/scripts/script.service";
-import {Script} from "../../shared/models/script.model";
+import {Script} from "../../shared/models/scripts/script.model";
 import {
   faChartBar,
   faFan,

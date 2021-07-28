@@ -57,6 +57,18 @@ mat-divider {
   height: 50px;
 }
 
+#scripts {
+  mat-list {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 8.5em;
+    margin-top: 1em;
+    //padding-left: 2.5em;
+    scroll-padding-left: auto;
+    padding-bottom: 1em;
+  }
+}
+
 mat-progress-bar:hover {
   cursor: pointer;
 }
@@ -76,6 +88,10 @@ mat-progress-bar:hover {
 .skillValue {
   font-size: 24px;
   font-weight: bold;
+}
+
+.scripts {
+  min-width: 65px;
 }
 
 .scripts:hover {

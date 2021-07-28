@@ -151,10 +151,10 @@
         </mat-card-title>
 
         <mat-card-content>
-          <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 2.5em;">
-            <mat-list *ngFor="let script of scripts">
-              <mat-list-item>
-                  <mat-card  class="scripts" (dblclick)="editScript(script)">
+          <div id="scripts" style="margin-top: 2em;">
+            <mat-list fxLayout="row" fxLayoutAlign="center center">
+              <mat-list-item  *ngFor="let script of scripts">
+                  <mat-card class="scripts" (dblclick)="editScript(script)">
                     <mat-card-content>
                       <div fxLayout="column" fxLayoutAlign="center center">
                         <span><fa-icon [icon]="scriptIcon" size="3x"></fa-icon></span>

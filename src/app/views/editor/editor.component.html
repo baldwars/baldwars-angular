@@ -1,7 +1,30 @@
-<div class="editor-container">
-  <ngx-monaco-editor style="height: 100%"
-                     [options]="editorOptions"
-                     *ngIf="currentScript"
-                     [(ngModel)]="currentScript.content">
-  </ngx-monaco-editor>
+<div style="margin-top: 5em;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <form [formGroup]="scriptForm" style="width: 100%;">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <div>
+        <mat-form-field>
+          <mat-select formControlName="name" (selectionChange)="selectScript($event)">
+            <mat-option *ngFor="let script of scripts" [value]="script.name"> {{ script.name }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="warn" (click)="testScript(currentScript)">
+        <mat-icon>search</mat-icon>
+        Test
+      </button>
+      <button mat-raised-button color="primary" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+        Create
+      </button>
+    </div>
+
+    <div class="editor-container">
+      <ngx-monaco-editor style="height: 100%;"
+                         [options]="editorOptions"
+                         formControlName="content">
+      </ngx-monaco-editor>
+    </div>
+  </form>
 </div>
+

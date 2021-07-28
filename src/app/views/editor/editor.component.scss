@@ -1,5 +1,7 @@
 .editor-container {
   height: 500px;
-  width: 70%;
-  margin: auto;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - 30%);
 }
