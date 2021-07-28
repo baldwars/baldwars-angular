@@ -4,8 +4,6 @@ import {UserService} from "../../shared/services/user/user.service";
 import {WarriorService} from "../../shared/services/warrior/warrior.service";
 import {Warrior} from "../../shared/models/warrior/warrior.model";
 import {NotifierService} from "angular-notifier";
-import {SkillCosts} from "../../shared/models/warrior/skill-costs";
-import {SkillGain} from "../../shared/models/warrior/skill-gain";
 import {WeaponStore} from "../../shared/models/weapons/weaponStore.model";
 import {WeaponService} from "../../shared/services/weapon/weapon.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -15,7 +13,7 @@ import {Script} from "../../shared/models/script.model";
 import {
   faChartBar,
   faFan,
-  faFileCode, faHandsHelping,
+  faFileCode,
   faHeart, faHistory, faPlus,
   faShoePrints,
   faStar,
@@ -162,7 +160,7 @@ export class DashboardComponent implements OnInit {
   }
 
   editScript(script: Script) {
-    this.router.navigate(["editor"], {queryParams: {script: script.id}}).then();
+    this.router.navigate(['editor', script.id]).then();
   }
 
   getFightColor(fight: Fight): string {
