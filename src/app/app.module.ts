@@ -23,6 +23,8 @@ import { LeaderboardComponent } from './views/leaderboard/leaderboard.component'
 import { DocumentationComponent } from './views/documentation/documentation.component';
 import { FightComponent } from './views/fight/fight.component';
 import { LobbyComponent } from './views/lobby/lobby.component';
+import { LeekSelectionComponent } from './views/lobby/leek-selection/leek-selection.component';
+import { WeaponDetailsDialogComponent } from './views/dashboard/weapon-details-dialog/weapon-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { LobbyComponent } from './views/lobby/lobby.component';
     DocumentationComponent,
     FightComponent,
     LobbyComponent,
+    LeekSelectionComponent,
+    WeaponDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,

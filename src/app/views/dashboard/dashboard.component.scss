@@ -2,14 +2,83 @@
   width: 60%;
   margin: auto;
 
+  ::ng-deep mat-progress-bar {
+    height: 22px;
+    width: 10%;
+  }
+
+  mat-progress-bar .md-container {
+    height: 20px;
+  }
+
+  mat-progress-bar .md-container .md-bar {
+    height: 20px;
+  }
+
   mat-grid-list {
-    height: 200px;
+    height: 60vh;
   }
   mat-grid-tile {
-    background-color: lightgrey;
+    mat-card {
+      background-color: lightgrey;
+      width: 100%;
+      height: 85%;
+
+      mat-list-item {
+        max-height: 20px;
+        //padding: 0;
+
+        mat-icon {
+          z-index: 1;
+          font-size: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .customCardContent {
+    overflow: auto;
+    height: inherit;
   }
 }
 
 .combat-history-card {
   margin-top: 20px;
+}
+
+mat-progress-bar {
+  margin-left: auto;
+  margin-right: auto;
+  height: 12px;
+  width: 100%;
+}
+
+mat-divider {
+  height: 50px;
+}
+
+mat-progress-bar:hover {
+  cursor: pointer;
+}
+
+.plusSkill {
+  font-size: 24px;
+  color: purple;
+  cursor: pointer;
+}
+
+.plusSkillDisabled {
+  font-size: 24px;
+  color: lightgray;
+  cursor: not-allowed;
+}
+
+.skillValue {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.scripts:hover {
+  cursor: pointer;
+  background: lightgray;
 }

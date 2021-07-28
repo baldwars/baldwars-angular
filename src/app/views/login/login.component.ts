@@ -31,13 +31,12 @@ export class LoginComponent implements OnInit {
 
   async login(credentials: Credentials): Promise<void> {
     const res = await this.authService.login(credentials.username, credentials.password)
-    console.log(res)
 
     if (!await this.authService.isLogged()) {
       this.notifierService.notify('error', 'Invalid credentials.')
     }
 
-    await this.router.navigate(['editor']);
+    await this.router.navigate(['dashboard']);
   }
 
 }
