@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CodeSendService} from "../../shared/services/code-transmission/code-send.service";
 import {UserService} from "../../shared/services/user/user.service";
 import {ScriptService} from "../../shared/services/scripts/script.service";
@@ -11,6 +11,7 @@ import {ScriptNameDialogComponent} from "./script-name-dialog/script-name-dialog
 import {NotifierService} from "angular-notifier";
 import {FightService} from "../../shared/services/fights/fight.service";
 import {Fight} from "../../shared/models/fight/fight";
+import {ScriptRequest} from "../../shared/models/scripts/script-request.model";
 
 @Component({
   selector: 'app-editor',
@@ -19,7 +20,7 @@ import {Fight} from "../../shared/models/fight/fight";
 })
 export class EditorComponent implements OnInit {
   editorOptions = {theme: 'vs-dark', language: 'c'};
-  serverResponse = "";
+  error = "";
 
   scriptForm: FormGroup = this.formBuilder.group({
     owner: [this.userService.getUserId()],
@@ -60,11 +61,17 @@ export class EditorComponent implements OnInit {
         });
       });
   }
-  testScript(script: Script) {
-    this.fightService.testScript(script).subscribe((response: Fight) => {
+
+  testScript(script: ScriptRequest) {
+    const body: Script = {id: this.currentScript.id, owner: script.owner,
+      name: script.name, content: script.content, isDefense: script.isDefense};
+    this.saveScript(body);
+    this.fightService.testScript(body).subscribe((response: Fight) => {
       console.log(response)
     },
-      error => this.notifierService.notify('error', error.error.message()));
+      error => {
+        this.error = error.error.text;
+      });
   }
 
   selectScript(event: MatSelectChange) {
@@ -107,6 +114,7 @@ export class EditorComponent implements OnInit {
   }
 
   saveScript(request: Script) {
+    console.log(request)
     this.scriptService.save(request).subscribe(response => {
           if (response.status === 201) {
             const splitUrl = response.headers.get('location')?.split('/');

@@ -34,16 +34,18 @@ int main() {
   }
 
   save(script: Script): Observable<HttpResponse<void>> {
-    if (script.name !== '') {
+    if (script.name === '') {
       const request : ScriptRequest = {
         content: script.content,
         isDefense: script.isDefense,
         name: script.name,
         owner: script.owner
       }
-      return this.http.post<any>(`${ this.url }`, request, { observe: 'response' });
+      return this.http.post<void>(`${ this.url }`, request, { observe: 'response' });
     }
 
-    return this.http.put<any>(`${ this.url }`, script, { observe: 'response' });
+    console.log('script')
+    console.log(script)
+    return this.http.put<void>(`${ this.url }/${ script.id }`, script, { observe: 'response' });
   }
 }
