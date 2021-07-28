@@ -4,6 +4,7 @@
 
 export const environment = {
   endpoint: 'http://localhost:7000/api',
+  // endpoint: 'http://baldwars-api/api',
   production: false
 };
 

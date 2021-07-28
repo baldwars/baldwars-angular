@@ -25,6 +25,7 @@ import { FightComponent } from './views/fight/fight.component';
 import { LobbyComponent } from './views/lobby/lobby.component';
 import { LeekSelectionComponent } from './views/lobby/leek-selection/leek-selection.component';
 import { WeaponDetailsDialogComponent } from './views/dashboard/weapon-details-dialog/weapon-details-dialog.component';
+import { ScriptNameDialogComponent } from './views/editor/script-name-dialog/script-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { WeaponDetailsDialogComponent } from './views/dashboard/weapon-details-d
     LobbyComponent,
     LeekSelectionComponent,
     WeaponDetailsDialogComponent,
+    ScriptNameDialogComponent,
   ],
   imports: [
     BrowserModule,

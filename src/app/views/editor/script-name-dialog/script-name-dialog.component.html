@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create new AI script</h1>
+
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div mat-dialog-content style="width: 90%;">
+      <mat-form-field style="width: 100%;">
+        <input [(ngModel)]="data.name" matInput placeholder="Script name" >
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end end">
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-raised-button
+              color="primary"
+              [mat-dialog-close]="data"
+              [disabled]="data.name.length === 0">Create</button>
+    </div>
+  </div>
+</div>

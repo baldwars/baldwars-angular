@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './views/home/home.component';
 import { RegisterComponent } from './views/register/register.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthGuard } from "./guards/auth.guard";
@@ -19,6 +18,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'editor', component: EditorComponent, canActivate: [AuthGuard] },
+  { path: 'editor/:id', component: EditorComponent, canActivate: [AuthGuard] },
   { path: 'documentation', component: DocumentationComponent, canActivate: [AuthGuard] },
   { path: 'fight', component: FightComponent, canActivate: [AuthGuard] },
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuard] },
