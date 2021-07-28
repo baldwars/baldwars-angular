@@ -5,6 +5,7 @@ import {UserService} from "../../shared/services/user/user.service";
 import {NotifierService} from "angular-notifier";
 import {ScriptService} from "../../shared/services/scripts/script.service";
 import {Script} from "../../shared/models/script.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-editor',
@@ -13,20 +14,22 @@ import {Script} from "../../shared/models/script.model";
 })
 export class EditorComponent implements OnInit {
   editorOptions = {theme: 'vs-dark', language: 'c'};
-//   userCode: UserCode = {
-//     username: this.userService.getCurrentUser()?.username,
-//     code: `#include <stdio.h>
-// int main() {
-//    // printf() displays the string inside quotation
-//    printf("Hello, World!");
-//    return 0;
-// }`
-//   };
+  userCode: UserCode = {
+    username: this.userService.getUserUsername(),
+    code: `#include <stdio.h>
+int main() {
+   // printf() displays the string inside quotation
+   printf("Hello, World!");
+   return 0;
+}`
+  };
   serverResponse = "";
 
   scripts: Script[] = [];
+  currentScript?: Script;
 
   constructor(
+    private route: ActivatedRoute,
     private codeSendService: CodeSendService,
     private userService: UserService,
     private scriptService: ScriptService,
@@ -35,12 +38,21 @@ export class EditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.scriptService.getUserScripts(this.userService.getUserId())
-      .subscribe((response: Script[]) => this.scripts = response);
+      .subscribe((response: Script[]) => {
+        this.scripts = response;
+        this.route.queryParams.subscribe(params => {
+          if (params.script) {
+            this.currentScript = this.scripts.find(script => script.id === params.script);
+          } else {
+            this.currentScript = this.scriptService.getScriptStarter(this.userService.getUserId());
+          }
+        });
+      });
   }
 
-  onInit(editor: any) {
-    let line = editor.getPosition();
-  }
+  // onInit(editor: any) {
+  //   let line = editor.getPosition();
+  // }
 
   testScript() {
 
