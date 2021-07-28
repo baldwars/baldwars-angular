@@ -63,6 +63,7 @@ export class EditorComponent implements OnInit {
   }
 
   testScript(script: ScriptRequest) {
+    this.error = '';
     const body: Script = {id: this.currentScript.id, owner: script.owner,
       name: script.name, content: script.content, isDefense: script.isDefense};
     this.saveScript(body);
@@ -121,8 +122,9 @@ export class EditorComponent implements OnInit {
             const id = splitUrl![splitUrl!.length - 1];
             this.router.navigate(['editor', id]).then();
           }
-
+          const current = this.currentScript;
           this.getUserScripts();
+          this.currentScript = current;
         },
         error => {
           if (error.status === 409) {
