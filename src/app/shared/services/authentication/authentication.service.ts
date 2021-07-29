@@ -50,7 +50,8 @@ export class AuthenticationService {
 
       const user: UserSession = {
         id: response?.id,
-        username: response?.username
+        username: response?.username,
+        role: response?.role
       }
 
       AuthenticationService.setSessionToLocalStorage(res.token, user);

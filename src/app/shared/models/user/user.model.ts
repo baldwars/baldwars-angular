@@ -5,6 +5,7 @@ export interface User {
   username: string;
   firstName: string;
   lastName: string;
+  role: string;
   eloPoints: number;
   xp: number;
   maxXp: number;

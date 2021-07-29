@@ -18,7 +18,11 @@ export class FightService {
     return this.http.get<Fight[]>(`${ this.url }/user/${ userId }`);
   }
 
-  testScript(script: Script) {
+  testScript(script: Script): Observable<Fight> {
     return this.http.post<Fight>(`${ this.url }/test`, script);
+  }
+
+  runFight(script: Script, opponent: string): Observable<Fight> {
+    return this.http.post<Fight>(`${ this.url }`, {script, opponent});
   }
 }

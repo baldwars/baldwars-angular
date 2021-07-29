@@ -1,1 +1,30 @@
-<p>fight works!</p>
+<div style="margin-top: 2.5em;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20xp">
+  <mat-card>
+    <mat-card-title>
+      <fa-icon [icon]="opponentsIcon"></fa-icon> Opponents
+    </mat-card-title>
+
+    <mat-card-content>
+      <div id="scripts" style="margin-top: 2em;">
+        <mat-list fxLayout="row" fxLayoutAlign="center center">
+          <mat-list-item  *ngFor="let opponent of opponents">
+            <mat-card (click)="fight(opponent)">
+              <mat-card-content>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                  <span>{{opponent.username}}</span>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+</div>
+
+<div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+  <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
+  <div class="spinner_overlay"></div>
+</div>

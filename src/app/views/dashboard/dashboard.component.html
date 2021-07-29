@@ -176,10 +176,10 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 2.5em;">
-          <mat-list *ngFor="let fight of displayedFights">
-            <mat-list-item>
-              <mat-card [ngStyle]="{ 'background': fight.color }">
+        <div id="fights">
+          <mat-list fxLayout="row" fxLayoutAlign="start center" style="margin-top: 2.5em;">
+            <mat-list-item *ngFor="let fight of displayedFights" fxLayoutGap="20px">
+              <mat-card class="fights" [ngStyle]="{ 'background': fight.color }">
                 <mat-card-content>
                   <div fxLayout="row" fxLayoutAlign="center center">
                   <span>{{ fight.striker.warrior.name | titlecase }}

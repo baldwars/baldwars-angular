@@ -68,6 +68,19 @@ mat-divider {
   }
 }
 
+#fights {
+  mat-list {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 8.5em;
+    margin-top: 1em;
+    scroll-padding-left: auto;
+    padding-bottom: 1em;
+
+
+  }
+}
+
 mat-progress-bar:hover {
   cursor: pointer;
 }
@@ -91,6 +104,15 @@ mat-progress-bar:hover {
 
 .scripts {
   min-width: 65px;
+}
+
+.fights {
+  min-width: 160px;
+}
+
+.fights:hover {
+  cursor: pointer;
+  background: lightgray !important;
 }
 
 .scripts:hover {
