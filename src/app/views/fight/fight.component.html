@@ -1,4 +1,4 @@
-<div style="margin-top: 2.5em;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20xp">
+<div style="margin-top: 2.5em; height: 100%;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20xp">
   <mat-card>
     <mat-card-title>
       <fa-icon [icon]="opponentsIcon"></fa-icon> Opponents
@@ -21,8 +21,8 @@
     </mat-card-content>
   </mat-card>
 
-
 </div>
+<app-game></app-game>
 
 <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
   <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
