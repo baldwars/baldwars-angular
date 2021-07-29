@@ -16,9 +16,11 @@ export class FightComponent implements OnInit {
 
   scripts: Script[] = [];
   opponents: User[] = [];
+  dataSource = {}
 
   opponentsIcon = faUsers;
   isLoading: boolean = false;
+  displayedColumns: string[] = ['result', 'player', 'warrior', 'eloPoints', 'baldCoins'];
 
   constructor(
     private fightService: FightService,
@@ -47,13 +49,11 @@ export class FightComponent implements OnInit {
 
   fight(opponent: User) {
     this.isLoading = true;
-    console.log(this.scripts)
     const script = this.scripts.filter(script => script.isDefense);
-    console.log(script)
     this.fightService.runFight(script[0], opponent.id)
       .subscribe(
         (response: Fight) => {
-          console.log(response)
+          this.dataSource = response;
           this.isLoading = false;
         },
         err => console.log(err));
